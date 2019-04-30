@@ -40,3 +40,17 @@ const add4 = x => {
 }
 
 console.log(add4(1)(2)(7)(4).result)
+
+// через прототип
+function converter (factor, symbol, input){
+  return input * factor + symbol;
+}
+Function.prototype.curry = function(){
+  var args = Array.from(arguments);
+  var self = this;
+  return function(){
+    return self.apply(null, args.concat(Array.from(arguments)))
+  }
+}
+var milesToKm = converter.curry(1.62, 'km');
+console.log(milesToKm(3));
